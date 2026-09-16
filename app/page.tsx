@@ -1,151 +1,336 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { WHATSAPP_LINK, WEB3FORMS_ACCESS_KEY } from "@/lib/config";
+import CircuitBackground from "@/components/CircuitBackground";
+import { WHATSAPP_NUMBER, WEB3FORMS_ACCESS_KEY } from "@/lib/config";
 
-const servicios = [
-  { nombre: "Notebooks", desc: "Pantallas, teclados, placas, bisagras y más." },
-  { nombre: "PCs de escritorio", desc: "Armado, mantenimiento y reparación de componentes." },
-  { nombre: "MacBooks", desc: "Reparación a nivel de componente y placa lógica." },
-  { nombre: "Smartphones", desc: "Pantallas, baterías, puertos de carga y más." },
-  { nombre: "iPhones", desc: "Pantallas, baterías, cámaras y componentes internos." },
-  { nombre: "Parlantes portátiles", desc: "Baterías, conectores y fallas de audio." },
-  { nombre: "Consolas", desc: "PlayStation, Xbox, Nintendo y más." },
-];
+const WHATSAPP_MESSAGE = "\u00a1Hola PrimoTech! Quiero consultar por una reparaci\u00f3n.";
+
+function buildWaLink() {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+}
+
+const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: clamp(11px, 2.2vw, 24px); padding: clamp(11px, 1.6vw, 16px) clamp(18px, 5vw, 64px) clamp(13px, 1.6vw, 16px); background: rgba(4,7,4,.72); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%); border-bottom: 1px solid rgba(57,255,20,.16);">
+    <a href="#inicio" style="display: flex; align-items: center; gap: 10px; color: #f2fff0;">
+      <img data-m="mark" src="/assets/primotech-wordmark-nav.png" alt="PrimoTech" style="display: block; height: clamp(23px, 3.2vw, 30px); width: auto; filter: drop-shadow(0 0 10px rgba(57,255,20,.45));">
+    </a>
+    <div data-m="navlinks" style="display: flex; align-items: center; gap: clamp(15px, 2.4vw, 34px); font-family: 'IBM Plex Mono', monospace; font-size: clamp(11px, 1.2vw, 12px); letter-spacing: clamp(.07em, .3vw, .12em); text-transform: uppercase;">
+      <a href="#inicio" style="color: #cfe0cc; padding: 6px 2px; border-bottom: 1px solid transparent;" style-hover="color: #39ff14; border-bottom: 1px solid rgba(57,255,20,.6);">Inicio</a>
+      <a href="#servicios" style="color: #cfe0cc; padding: 6px 2px; border-bottom: 1px solid transparent;" style-hover="color: #39ff14; border-bottom: 1px solid rgba(57,255,20,.6);">Servicios</a>
+      <a href="#nosotros" style="color: #cfe0cc; padding: 6px 2px; border-bottom: 1px solid transparent;" style-hover="color: #39ff14; border-bottom: 1px solid rgba(57,255,20,.6);">Nosotros</a>
+      <a href="#contacto" style="color: #cfe0cc; padding: 6px 2px; border-bottom: 1px solid transparent;" style-hover="color: #39ff14; border-bottom: 1px solid rgba(57,255,20,.6);">Contacto</a>
+      <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: none; color: #040604; background: #39ff14; padding: 9px 16px; border-radius: 999px; font-weight: 600; letter-spacing: .1em; box-shadow: 0 0 24px rgba(57,255,20,.35);" style-hover="background: #a8ff96;">WhatsApp</a>
+    </div>
+  </nav>
+
+  <section id="inicio" data-m="hero" data-screen-label="Inicio" style="position: relative; z-index: 1; min-height: min(100vh, 780px); display: flex; align-items: center; padding: clamp(152px, 19vw, 160px) clamp(18px, 5vw, 64px) clamp(72px, 9vw, 90px); overflow: hidden;">
+    <div style="position: absolute; top: -22vh; left: 50%; transform: translateX(-50%); width: min(1200px, 130vw); height: 90vh; pointer-events: none; background: radial-gradient(50% 50% at 50% 50%, rgba(57,255,20,.20) 0%, rgba(57,255,20,.06) 42%, transparent 72%); filter: blur(10px);"></div>
+    <div style="position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(90deg, rgba(57,255,20,.07) 1px, transparent 1px); background-size: 120px 100%; mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent); -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);"></div>
+    <div style="position: absolute; left: 0; right: 0; top: 58%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
+    <div style="position: absolute; left: 12%; top: 58%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; right: 22%; top: 58%; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 12px #39ff14; animation: pt-pulse 4.1s ease-in-out infinite; pointer-events: none;"></div>
+    <div style="position: absolute; right: -140px; bottom: -160px; width: 520px; height: 520px; border: 1px solid rgba(57,255,20,.14); border-radius: 50%; pointer-events: none;"></div>
+    <div style="position: absolute; right: -60px; bottom: -80px; width: 340px; height: 340px; border: 1px dashed rgba(57,255,20,.16); border-radius: 50%; pointer-events: none;"></div>
+
+    <div data-reveal style="position: relative; width: 100%; max-width: 1080px; margin: 0 auto; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+      <div style="display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(57,255,20,.3); border-radius: 999px; background: rgba(6,12,6,.9); white-space: nowrap; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #a8ff96;">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 10px #39ff14; animation: pt-pulse 2s ease-in-out infinite;"></span>
+        Nueva Córdoba · Córdoba Capital
+      </div>
+      <h1 style="margin: 22px 0 0; font-size: 0; line-height: 0;">
+        <video id="pt-logo-video" src="/assets/primotech-logo-6s.webm" autoPlay muted loop playsInline preload="auto" aria-label="PrimoTech — especialistas en dispositivos" style="display: block; width: min(124%, 980px); height: auto; margin-left: clamp(-12%, -10vw, -9%);"></video>
+      </h1>
+      <p style="margin: 30px 0 0; max-width: 640px; font-size: clamp(16px, 2.1vw, 20px); line-height: 1.6; color: #b6c8b3; text-wrap: pretty;">Reparamos notebooks, PCs de escritorio, MacBooks, smartphones, iPhones, parlantes portátiles y consolas. Diagnóstico en el centro de Nueva Córdoba.</p>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 42px;">
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 14px; padding: 20px 34px; border-radius: 4px; background: #39ff14; color: #040604; font-size: 17px; font-weight: 700; letter-spacing: .01em; box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 50px rgba(57,255,20,.28); transition: transform .25s ease, box-shadow .25s ease, background .25s ease;" style-hover="background: #6bff4f; transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(57,255,20,.8), 0 24px 64px rgba(57,255,20,.42);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#040604" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.25-4.35c0-4.54 3.7-8.23 8.23-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.54-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.51-1.22-.69-1.67-.19-.45-.37-.39-.51-.4h-.44c-.15 0-.4.06-.61.31-.21.25-.8.79-.8 1.92 0 1.13.82 2.22.94 2.38.11.15 1.6 2.54 3.88 3.46.54.24.97.38 1.3.48.55.18 1.05.15 1.45.09.44-.06 1.42-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.28Z"></path></svg>
+          Escribinos por WhatsApp
+        </a>
+        <a href="#servicios" style="display: inline-flex; align-items: center; gap: 10px; padding: 20px 24px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #cfe0cc; border-bottom: 1px solid rgba(57,255,20,.3);" style-hover="color: #39ff14; border-bottom: 1px solid #39ff14;">Ver servicios ↓</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="servicios" data-screen-label="Servicios" style="position: relative; z-index: 1; padding: clamp(80px, 10vw, 140px) clamp(18px, 5vw, 64px); border-top: 1px solid rgba(57,255,20,.12); background: linear-gradient(180deg, rgba(57,255,20,.035), transparent 60%);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+        <div>
+          <p style="margin: 0 0 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #39ff14;">Servicios</p>
+          <h2 style="margin: 0; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.035em; color: #f4fff1;">Qué reparamos</h2>
+        </div>
+        <p style="margin: 0; max-width: 420px; font-size: 16px; line-height: 1.65; color: #9fb29c;">Diagnóstico sin cargo y presupuesto antes de tocar el equipo, siempre que se pueda. Trabajamos con microsoldadura, cambio de módulos y recuperación de datos.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 56px;">
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">iPhones</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Cambio de pantalla y batería sin aviso de pieza desconocida, Face ID, periféricos internos y placa nivel componente.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">Notebooks</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Cambio de pantalla, teclado, bisagras y batería, limpieza y cambio de pasta térmica, metal líquido o pads térmicos, reparación de placa a nivel componente.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">MacBooks</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Diagnóstico de logic board, daño por líquido, trackpad, batería y flex de pantalla. Microsoldadura.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">Smartphones</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Cambio de módulo express, pin de carga, batería y cámaras. Android de todas las marcas.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">PCs de escritorio</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Mantenimiento, instalación de sistema y optimización.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>
+          <h3 style="position: relative; margin: 0 0 12px; font-size: 24px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">Parlantes portátiles</h3>
+          <p style="position: relative; margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">Baterías, plaquetas y pin de carga, conectores, drivers y fallas de Bluetooth. JBL, Sony y similares.</p>
+        </div>
+
+        <div data-reveal style="position: relative; overflow: hidden; grid-column: 1 / -1; padding: 36px 32px; border: 1px solid rgba(57,255,20,.22); border-radius: 6px; background: linear-gradient(120deg, rgba(24,40,20,.95), rgba(6,10,6,.9) 60%); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.55); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 40px rgba(57,255,20,.18);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(90deg, rgba(57,255,20,.1) 1px, transparent 1px); background-size: 60px 100%; opacity: .6;"></div>
+          <div style="position: relative; max-width: 760px;">
+            <h3 style="margin: 0 0 12px; font-size: 28px; font-weight: 600; letter-spacing: -.02em; color: #f4fff1;">Consolas</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #a3b6a0;">PlayStation, Xbox y Nintendo Switch: mantenimiento, cambio de pasta térmica, metal líquido o pads térmicos, lectora, HDMI, reparación de joysticks y drift, sobrecalentamiento, ventilación y reparación de placa a nivel componente.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <div data-reveal style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 18px; margin-top: 34px; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+        <p style="margin: 0; font-size: 16px; color: #9fb29c;">¿No ves tu equipo en la lista? Consultanos igual.</p>
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 28px; border: 1px solid #39ff14; border-radius: 4px; color: #39ff14; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; transition: background .25s ease, color .25s ease, transform .25s ease;" style-hover="background: #39ff14; color: #040604; transform: translateY(-2px);">Consultar reparación</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="nosotros" data-screen-label="Nosotros" style="position: relative; z-index: 1; padding: clamp(80px, 10vw, 140px) clamp(18px, 5vw, 64px); border-top: 1px solid rgba(57,255,20,.12); overflow: hidden;">
+    <div style="position: absolute; left: -160px; top: 20%; width: 420px; height: 420px; pointer-events: none; background: radial-gradient(50% 50% at 50% 50%, rgba(57,255,20,.14), transparent 70%); filter: blur(6px);"></div>
+    <div style="position: relative; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(32px, 6vw, 80px); align-items: start;">
+      <div data-reveal style="transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+        <p style="margin: 0 0 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #39ff14;">Nosotros</p>
+        <h2 style="margin: 0 0 26px; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.035em; color: #f4fff1;">Un taller, no una caja negra</h2>
+        <p style="margin: 0 0 20px; font-size: 17px; line-height: 1.7; color: #b6c8b3; text-wrap: pretty;">PrimoTech es un local de reparación de dispositivos electrónicos en Nueva Córdoba. Recibimos el equipo, hacemos el diagnóstico y te explicamos qué falla, qué se cambia y cuánto cuesta antes de avanzar. Reparamos a nivel componente cuando se puede, en vez de cambiar todo por defecto.</p>
+        <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #8fa38c;">Trabajos con garantía escrita y seguimiento por WhatsApp mientras tu equipo está en el taller.</p>
+      </div>
+      <div data-reveal style="display: grid; gap: 14px; transition: opacity .8s ease .12s, transform .8s cubic-bezier(.2,.7,.2,1) .12s;">
+        <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.14) 1px, transparent 1.3px); background-size: 20px 20px; opacity: .4;"></div>
+          <p style="position: relative; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Dirección</p>
+          <p style="position: relative; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: #f4fff1;">Ituzaingó 444</p>
+          <p style="position: relative; margin: 6px 0 0; font-size: 16px; color: #9fb29c;">Nueva Córdoba, Córdoba Capital</p>
+        </div>
+        <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.14) 1px, transparent 1.3px); background-size: 20px 20px; opacity: .4;"></div>
+          <p style="position: relative; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Horarios</p>
+          <p style="position: relative; margin: 0; font-size: 18px; color: #e6f5e3;">Lunes a viernes · 9 a 19 hs</p>
+          <p style="position: relative; margin: 6px 0 0; font-size: 18px; color: #e6f5e3;">Sábados · 9 a 14 hs</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" data-screen-label="Contacto" style="position: relative; z-index: 1; padding: clamp(80px, 10vw, 140px) clamp(18px, 5vw, 64px) clamp(60px, 8vw, 110px); border-top: 1px solid rgba(57,255,20,.12); background: linear-gradient(180deg, transparent, rgba(57,255,20,.04));">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+        <p style="margin: 0 0 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #39ff14;">Contacto</p>
+        <h2 style="margin: 0 0 18px; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.035em; color: #f4fff1;">Contanos en qué te podemos ayudar</h2>
+        <p style="margin: 0 0 36px; max-width: 560px; font-size: 17px; line-height: 1.65; color: #9fb29c;">Escribinos por WhatsApp para una respuesta rápida, o dejanos tu consulta y te contestamos por mail.</p>
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 14px; padding: 18px 30px; border-radius: 4px; background: #39ff14; color: #040604; font-size: 16px; font-weight: 700; box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 16px 44px rgba(57,255,20,.25); transition: transform .25s ease, background .25s ease;" style-hover="background: #6bff4f; transform: translateY(-3px);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#040604" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.25-4.35c0-4.54 3.7-8.23 8.23-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.54-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.51-1.22-.69-1.67-.19-.45-.37-.39-.51-.4h-.44c-.15 0-.4.06-.61.31-.21.25-.8.79-.8 1.92 0 1.13.82 2.22.94 2.38.11.15 1.6 2.54 3.88 3.46.54.24.97.38 1.3.48.55.18 1.05.15 1.45.09.44-.06 1.42-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.28Z"></path></svg>
+          Abrir chat de WhatsApp
+        </a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 22px; margin-top: 54px;">
+        <form data-reveal id="pt-contact-form" style="position: relative; overflow: hidden; display: grid; gap: 16px; padding: clamp(24px, 3vw, 36px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.92), rgba(6,10,6,.92)); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
+          <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.13) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(70% 60% at 0% 0%, #000, transparent); -webkit-mask-image: radial-gradient(70% 60% at 0% 0%, #000, transparent);"></div>
+          <p style="position: relative; margin: 0 0 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Formulario de consulta</p>
+          <label style="position: relative; display: grid; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #8fa38c;">
+            Nombre
+            <input type="text" name="nombre" required placeholder="Tu nombre" style="width: 100%; padding: 14px 16px; border: 1px solid rgba(57,255,20,.2); border-radius: 4px; background: rgba(4,7,4,.7); color: #eafce7; font-family: 'Space Grotesk', sans-serif; font-size: 16px; letter-spacing: 0; text-transform: none; outline: none; transition: border-color .25s ease, box-shadow .25s ease;" style-focus="border-color: #39ff14; box-shadow: 0 0 0 3px rgba(57,255,20,.14);">
+          </label>
+          <label style="position: relative; display: grid; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #8fa38c;">
+            Email
+            <input type="email" name="email" required placeholder="tu@mail.com" style="width: 100%; padding: 14px 16px; border: 1px solid rgba(57,255,20,.2); border-radius: 4px; background: rgba(4,7,4,.7); color: #eafce7; font-family: 'Space Grotesk', sans-serif; font-size: 16px; letter-spacing: 0; text-transform: none; outline: none; transition: border-color .25s ease, box-shadow .25s ease;" style-focus="border-color: #39ff14; box-shadow: 0 0 0 3px rgba(57,255,20,.14);">
+          </label>
+          <label style="position: relative; display: grid; gap: 8px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #8fa38c;">
+            Mensaje
+            <textarea name="mensaje" rows="4" required placeholder="Qué equipo es y qué falla tiene" style="width: 100%; padding: 14px 16px; border: 1px solid rgba(57,255,20,.2); border-radius: 4px; background: rgba(4,7,4,.7); color: #eafce7; font-family: 'Space Grotesk', sans-serif; font-size: 16px; line-height: 1.5; letter-spacing: 0; text-transform: none; resize: vertical; outline: none; transition: border-color .25s ease, box-shadow .25s ease;" style-focus="border-color: #39ff14; box-shadow: 0 0 0 3px rgba(57,255,20,.14);"></textarea>
+          </label>
+          <p style="position: relative; margin: -4px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; color: #6f806c;">Se envía a primotech.cba@gmail.com</p>
+          <button type="submit" style="position: relative; margin-top: 6px; padding: 16px 24px; border: 1px solid #39ff14; border-radius: 4px; background: rgba(57,255,20,.1); color: #39ff14; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; cursor: pointer; transition: background .25s ease, color .25s ease;" style-hover="background: #39ff14; color: #040604;">Enviar consulta</button>
+          <p id="pt-form-msg" style="position: relative; margin: 0; min-height: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #39ff14;"></p>
+        </form>
+
+        <div data-reveal data-m="map" style="position: relative; overflow: hidden; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
+          <iframe title="Mapa de PrimoTech — Ituzaingó 444, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 · Nueva Córdoba</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position: relative; z-index: 1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding: 30px clamp(18px, 5vw, 64px); border-top: 1px solid rgba(57,255,20,.14); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #6f806c;">
+    <span>PrimoTech · especialistas en dispositivos</span>
+    <a href="https://instagram.com/primotech.cba" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; color: #a8ff96; letter-spacing: .12em; transition: color .25s ease;" style-hover="color: #39ff14;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+        <circle cx="12" cy="12" r="4"></circle>
+        <circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"></circle>
+      </svg>
+      @primotech.cba
+    </a>
+    <a href="https://tiktok.com/@primotech.cba" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; color: #a8ff96; letter-spacing: .12em; transition: color .25s ease;" style-hover="color: #39ff14;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M16.6 5.82A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 1 1-1.84-2.48V9.79a5.68 5.68 0 1 0 4.93 5.63V8.87a7.35 7.35 0 0 0 4.3 1.38V7.16a4.28 4.28 0 0 1-3.24-1.34Z"></path>
+      </svg>
+      TikTok
+    </a>
+    <a href="https://facebook.com/primotech.cba" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; color: #a8ff96; letter-spacing: .12em; transition: color .25s ease;" style-hover="color: #39ff14;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.87.24-1.46 1.48-1.46h1.58V4.45c-.27-.04-1.2-.11-2.29-.11-2.27 0-3.82 1.38-3.82 3.92v2.24H7.7v3h2.75V21h3.05Z"></path>
+      </svg>
+      Facebook
+    </a>
+    <span>Ituzaingó 444, Nueva Córdoba · Córdoba, AR</span>
+  </footer>
+
+  <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" style="position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 90; display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 1px rgba(57,255,20,.35), 0 14px 36px rgba(0,0,0,.55), 0 0 28px rgba(37,211,102,.45); animation: pt-float 4.5s ease-in-out infinite; transition: transform .25s ease, box-shadow .25s ease;" style-hover="transform: scale(1.08); box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 44px rgba(0,0,0,.6), 0 0 40px rgba(37,211,102,.65);">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="#040604" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.25-4.35c0-4.54 3.7-8.23 8.23-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.54-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.51-1.22-.69-1.67-.19-.45-.37-.39-.51-.4h-.44c-.15 0-.4.06-.61.31-.21.25-.8.79-.8 1.92 0 1.13.82 2.22.94 2.38.11.15 1.6 2.54 3.88 3.46.54.24.97.38 1.3.48.55.18 1.05.15 1.45.09.44-.06 1.42-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.28Z"></path></svg>
+  </a>
+`;
 
 export default function Home() {
   const router = useRouter();
-  const [menuAbierto, setMenuAbierto] = useState(false);
-  const [enviando, setEnviando] = useState(false);
-  const [error, setError] = useState("");
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setEnviando(true);
-    setError("");
-    const formData = new FormData(e.currentTarget);
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    document.documentElement.setAttribute("data-reveal-on", "");
+
+    const revealEls = Array.from(root.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const revealScan = () => {
+      revealEls.forEach((el) => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.94) {
+          el.setAttribute("data-revealed", "");
+        }
       });
-      const data = await res.json();
-      if (data.success) {
-        router.push("/gracias");
-      } else {
-        setError("Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.");
-      }
-    } catch {
-      setError("Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.");
-    } finally {
-      setEnviando(false);
+    };
+    revealScan();
+    const revealTimer = setInterval(revealScan, 400);
+    window.addEventListener("scroll", revealScan, { passive: true });
+
+    const cleanupFns: Array<() => void> = [];
+
+    root.querySelectorAll<HTMLElement>("[style-hover]").forEach((el) => {
+      const base = el.getAttribute("style") || "";
+      const hover = el.getAttribute("style-hover") || "";
+      const enter = () => { el.style.cssText = base + ";" + hover; };
+      const leave = () => { el.style.cssText = base; };
+      el.addEventListener("mouseenter", enter);
+      el.addEventListener("mouseleave", leave);
+      cleanupFns.push(() => {
+        el.removeEventListener("mouseenter", enter);
+        el.removeEventListener("mouseleave", leave);
+      });
+    });
+
+    root.querySelectorAll<HTMLElement>("[style-focus]").forEach((el) => {
+      const base = el.getAttribute("style") || "";
+      const focus = el.getAttribute("style-focus") || "";
+      const onFocus = () => { el.style.cssText = base + ";" + focus; };
+      const onBlur = () => { el.style.cssText = base; };
+      el.addEventListener("focus", onFocus);
+      el.addEventListener("blur", onBlur);
+      cleanupFns.push(() => {
+        el.removeEventListener("focus", onFocus);
+        el.removeEventListener("blur", onBlur);
+      });
+    });
+
+    const video = root.querySelector<HTMLVideoElement>("#pt-logo-video");
+    if (video) {
+      video.playbackRate = 12;
+      video.play().catch(() => {});
     }
-  }
+
+    const form = root.querySelector<HTMLFormElement>("#pt-contact-form");
+    const msgEl = root.querySelector<HTMLElement>("#pt-form-msg");
+    const submitBtn = form?.querySelector<HTMLButtonElement>('button[type="submit"]') ?? null;
+
+    async function onSubmit(e: Event) {
+      e.preventDefault();
+      if (!form) return;
+      const nombre = (form.elements.namedItem("nombre") as HTMLInputElement | null)?.value.trim() || "";
+      const email = (form.elements.namedItem("email") as HTMLInputElement | null)?.value.trim() || "";
+      const mensaje = (form.elements.namedItem("mensaje") as HTMLTextAreaElement | null)?.value.trim() || "";
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (msgEl) msgEl.textContent = "Enviando\u2026";
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: WEB3FORMS_ACCESS_KEY,
+            subject: "Consulta web \u2014 " + (nombre || "sin nombre"),
+            from_name: "Web PrimoTech",
+            name: nombre,
+            email: email,
+            message: mensaje,
+          }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          form.reset();
+          router.push("/gracias");
+        } else {
+          if (msgEl) msgEl.textContent = "No se pudo enviar. Escribinos por WhatsApp.";
+        }
+      } catch {
+        if (msgEl) msgEl.textContent = "Sin conexi\u00f3n. Escribinos por WhatsApp.";
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+      }
+    }
+
+    form?.addEventListener("submit", onSubmit);
+
+    return () => {
+      document.documentElement.removeAttribute("data-reveal-on");
+      clearInterval(revealTimer);
+      window.removeEventListener("scroll", revealScan);
+      cleanupFns.forEach((fn) => fn());
+      form?.removeEventListener("submit", onSubmit);
+    };
+  }, [router]);
+
+  const html = PAGE_HTML.replaceAll("{{ waLink }}", buildWaLink());
 
   return (
-    <div className="bg-black text-white min-h-screen">
-      <header className="fixed top-0 w-full z-50 bg-black/90 backdrop-blur border-b border-[#39ff14]/20">
-        <nav className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
-          <span className="text-xl font-bold text-[#39ff14]">Primotech</span>
-          <div className="hidden md:flex gap-8 text-sm">
-            <a href="#inicio" className="hover:text-[#39ff14] transition">Inicio</a>
-            <a href="#servicios" className="hover:text-[#39ff14] transition">Servicios</a>
-            <a href="#nosotros" className="hover:text-[#39ff14] transition">Nosotros</a>
-            <a href="#contacto" className="hover:text-[#39ff14] transition">Contacto</a>
-          </div>
-          <div className="flex items-center gap-4">
-            <a href={WHATSAPP_LINK} className="hidden md:inline-block bg-[#39ff14] text-black text-sm font-semibold px-4 py-2 rounded-full hover:opacity-90 transition">WhatsApp</a>
-            <button onClick={() => setMenuAbierto(!menuAbierto)} className="md:hidden text-[#39ff14]" aria-label="Abrir menú">
-              {menuAbierto ? (
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </nav>
-        {menuAbierto && (
-          <div className="md:hidden flex flex-col items-center gap-6 bg-black border-t border-[#39ff14]/20 py-6">
-            <a href="#inicio" onClick={() => setMenuAbierto(false)} className="hover:text-[#39ff14] transition">Inicio</a>
-            <a href="#servicios" onClick={() => setMenuAbierto(false)} className="hover:text-[#39ff14] transition">Servicios</a>
-            <a href="#nosotros" onClick={() => setMenuAbierto(false)} className="hover:text-[#39ff14] transition">Nosotros</a>
-            <a href="#contacto" onClick={() => setMenuAbierto(false)} className="hover:text-[#39ff14] transition">Contacto</a>
-            <a href={WHATSAPP_LINK} onClick={() => setMenuAbierto(false)} className="bg-[#39ff14] text-black text-sm font-semibold px-4 py-2 rounded-full hover:opacity-90 transition">WhatsApp</a>
-          </div>
-        )}
-      </header>
-
-      <section id="inicio" className="flex flex-col items-center justify-center text-center min-h-screen px-6 pt-20">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4 text-[#39ff14]">
-          Primotech
-        </h1>
-        <p className="text-gray-400 text-sm md:text-base mb-6 tracking-wide uppercase">
-          soluciones tecnológicas
-        </p>
-        <p className="max-w-xl text-gray-300 mb-8">
-          Reparación de notebooks, MacBooks, smartphones, iPhones, parlantes portátiles y consolas.
-          Diagnóstico rápido y atención personalizada en Ituzaingó 444.
-        </p>
-        <a href={WHATSAPP_LINK} className="bg-[#39ff14] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition">Hablá con nosotros por WhatsApp</a>
-      </section>
-
-      <section id="servicios" className="py-24 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-[#39ff14]">Servicios</h2>
-        <p className="text-center text-gray-400 mb-12">Reparamos y le damos una segunda vida a tus equipos</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {servicios.map((s) => (
-            <div key={s.nombre} className="bg-white/5 border border-[#39ff14]/20 rounded-xl p-6 hover:border-[#39ff14]/60 transition">
-              <h3 className="text-xl font-semibold mb-2 text-[#39ff14]">{s.nombre}</h3>
-              <p className="text-gray-400 text-sm">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section id="nosotros" className="py-24 px-6 max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#39ff14]">Nosotros</h2>
-        <p className="text-gray-300 leading-relaxed">
-          En Primotech reparamos con dedicación cada equipo que llega a nuestras manos: notebooks, PCs de escritorio,
-          MacBooks, smartphones, iPhones, parlantes portátiles y consolas. Buscamos siempre la solución más rápida
-          y conveniente para vos, con atención personalizada y diagnóstico claro antes de cualquier reparación.
-        </p>
-        <p className="text-gray-400 mt-6">
-          Nos encontrás en Ituzaingó 444, Nueva Córdoba, Córdoba Capital.
-        </p>
-        <p className="text-gray-400 mt-2">
-          Lunes a viernes de 9 a 19 hs, sábados de 9 a 14 hs.
-        </p>
-      </section>
-
-      <section id="contacto" className="py-24 px-6 max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-[#39ff14]">Contacto</h2>
-        <p className="text-center text-gray-400 mb-12">Escribinos y te respondemos a la brevedad</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div>
-            <a href={WHATSAPP_LINK} className="inline-block bg-[#39ff14] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition mb-6">Escribinos por WhatsApp</a>
-            <p className="text-gray-300 mb-1">Ituzaingó 444, Nueva Córdoba, Córdoba Capital.</p>
-            <p className="text-gray-400 mb-6">Lunes a viernes de 9 a 19 hs, sábados de 9 a 14 hs.</p>
-            <iframe src="https://www.google.com/maps?q=Ituzaing%C3%B3+444%2C+Nueva+C%C3%B3rdoba%2C+C%C3%B3rdoba%2C+Argentina&output=embed" className="w-full h-64 rounded-xl border border-[#39ff14]/20" loading="lazy"></iframe>
-          </div>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <input type="hidden" name="access_key" value={WEB3FORMS_ACCESS_KEY} />
-            <input type="hidden" name="subject" value="Nuevo mensaje desde primotech.com.ar" />
-            <input type="text" name="name" placeholder="Tu nombre" required className="bg-white/5 border border-[#39ff14]/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#39ff14]" />
-            <input type="email" name="email" placeholder="Tu email" required className="bg-white/5 border border-[#39ff14]/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#39ff14]" />
-            <textarea name="message" placeholder="Contanos qué necesitás" required rows={5} className="bg-white/5 border border-[#39ff14]/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-[#39ff14]"></textarea>
-            {error && <p className="text-red-400 text-sm">{error}</p>}
-            <button type="submit" disabled={enviando} className="bg-[#39ff14] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition disabled:opacity-50">
-              {enviando ? "Enviando..." : "Enviar mensaje"}
-            </button>
-          </form>
-        </div>
-      </section>
+    <div
+      ref={rootRef}
+      style={{ position: "relative", minHeight: "100vh", background: "#040604", isolation: "isolate" }}
+    >
+      <CircuitBackground />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
     </div>
   );
 }
