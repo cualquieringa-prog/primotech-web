@@ -24,29 +24,24 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
     </div>
   </nav>
 
-  <section id="inicio" data-m="hero" data-screen-label="Inicio" style="position: relative; z-index: 1; min-height: min(100vh, 780px); display: flex; align-items: center; padding: clamp(152px, 19vw, 160px) clamp(18px, 5vw, 64px) clamp(72px, 9vw, 90px); overflow: hidden;">
+  <section id="inicio" data-m="hero" data-screen-label="Inicio" style="position: relative; z-index: 1; min-height: min(100vh, 780px); display: flex; align-items: center; padding: clamp(72px, 8vw, 76px) clamp(18px, 5vw, 64px) clamp(72px, 9vw, 90px);">
     <div style="position: absolute; top: -22vh; left: 50%; transform: translateX(-50%); width: min(1200px, 130vw); height: 90vh; pointer-events: none; background: radial-gradient(50% 50% at 50% 50%, rgba(57,255,20,.20) 0%, rgba(57,255,20,.06) 42%, transparent 72%); filter: blur(10px);"></div>
     <div style="position: absolute; inset: 0; pointer-events: none; background-image: linear-gradient(90deg, rgba(57,255,20,.07) 1px, transparent 1px); background-size: 120px 100%; mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent); -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);"></div>
-    <div style="position: absolute; left: 0; right: 0; top: 58%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
-    <div style="position: absolute; left: 12%; top: 58%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
-    <div style="position: absolute; right: 22%; top: 58%; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 12px #39ff14; animation: pt-pulse 4.1s ease-in-out infinite; pointer-events: none;"></div>
     <div style="position: absolute; right: -140px; bottom: -160px; width: 520px; height: 520px; border: 1px solid rgba(57,255,20,.14); border-radius: 50%; pointer-events: none;"></div>
     <div style="position: absolute; right: -60px; bottom: -80px; width: 340px; height: 340px; border: 1px dashed rgba(57,255,20,.16); border-radius: 50%; pointer-events: none;"></div>
 
     <div data-reveal style="position: relative; width: 100%; max-width: 1080px; margin: 0 auto; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
-      <div style="display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border: 1px solid rgba(57,255,20,.3); border-radius: 999px; background: rgba(6,12,6,.9); white-space: nowrap; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #a8ff96;">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 10px #39ff14; animation: pt-pulse 2s ease-in-out infinite;"></span>
-        Nueva Córdoba · Córdoba Capital
-      </div>
-      <h1 style="margin: 22px 0 0; font-size: 0; line-height: 0;">
-        <video id="pt-logo-video" src="/assets/primotech-logo-6s.webm" autoPlay muted loop playsInline preload="auto" aria-label="PrimoTech — especialistas en dispositivos" style="display: block; width: min(124%, 980px); height: auto; margin-left: clamp(-12%, -10vw, -9%);"></video>
+      <h1 style="margin: 0; font-size: 0; line-height: 0; text-align: center;">
+        <video id="pt-logo-video" src="/assets/primotech-logo-6s.webm" autoPlay muted loop playsInline preload="auto" aria-label="PrimoTech — especialistas en dispositivos" style="display: inline-block; width: min(88%, 980px); height: auto; margin: 0 auto;"></video>
       </h1>
-      <p style="margin: 30px 0 0; max-width: 640px; font-size: clamp(16px, 2.1vw, 20px); line-height: 1.6; color: #b6c8b3; text-wrap: pretty;">Reparamos notebooks, PCs de escritorio, MacBooks, smartphones, iPhones, parlantes portátiles y consolas. Diagnóstico en el centro de Nueva Córdoba.</p>
+      <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Nueva Córdoba, Córdoba Capital</p>
+      <div style="position: relative; width: 100%; height: 16px; margin: 4px 0 0;">
+        <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
+        <div style="position: absolute; left: 12%; top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
+        <div style="position: absolute; right: 22%; top: 50%; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 12px #39ff14; animation: pt-pulse 4.1s ease-in-out infinite; pointer-events: none;"></div>
+      </div>
+      <p style="margin: 30px 0 0; max-width: 640px; font-size: clamp(16px, 2.1vw, 20px); line-height: 1.6; color: #b6c8b3; text-wrap: pretty;">Reparamos notebooks, iPhones, MacBooks, smartphones, consolas, parlantes portátiles y PCs de escritorio. Diagnóstico en el centro de Nueva Córdoba.</p>
       <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 42px;">
-        <a href="{{ waLink }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 14px; padding: 20px 34px; border-radius: 4px; background: #39ff14; color: #040604; font-size: 17px; font-weight: 700; letter-spacing: .01em; box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 50px rgba(57,255,20,.28); transition: transform .25s ease, box-shadow .25s ease, background .25s ease;" style-hover="background: #6bff4f; transform: translateY(-3px); box-shadow: 0 0 0 1px rgba(57,255,20,.8), 0 24px 64px rgba(57,255,20,.42);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#040604" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.25-4.35c0-4.54 3.7-8.23 8.23-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.54-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.51-1.22-.69-1.67-.19-.45-.37-.39-.51-.4h-.44c-.15 0-.4.06-.61.31-.21.25-.8.79-.8 1.92 0 1.13.82 2.22.94 2.38.11.15 1.6 2.54 3.88 3.46.54.24.97.38 1.3.48.55.18 1.05.15 1.45.09.44-.06 1.42-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.28Z"></path></svg>
-          Escribinos por WhatsApp
-        </a>
         <a href="#servicios" style="display: inline-flex; align-items: center; gap: 10px; padding: 20px 24px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #cfe0cc; border-bottom: 1px solid rgba(57,255,20,.3);" style-hover="color: #39ff14; border-bottom: 1px solid #39ff14;">Ver servicios ↓</a>
       </div>
     </div>
