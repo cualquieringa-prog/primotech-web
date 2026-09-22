@@ -34,7 +34,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       <h1 style="margin: 0; font-size: 0; line-height: 0; text-align: center;">
         <canvas id="pt-logo-canvas" role="img" aria-label="PrimoTech — especialistas en dispositivos" style="display: inline-block; width: min(88%, 980px); height: auto; margin: 0 auto;"></canvas>
       </h1>
-      <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Local 2, Nueva Córdoba, Córdoba Capital</p>
+      <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 Local 2, Nueva Córdoba, Córdoba Capital</p>
       <div style="position: relative; width: 100%; height: 16px; margin: 4px 0 0;">
         <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
         <div style="position: absolute; left: 12%; top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
@@ -125,7 +125,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
           <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.14) 1px, transparent 1.3px); background-size: 20px 20px; opacity: .4;"></div>
           <p style="position: relative; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Dirección</p>
-          <p style="position: relative; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: #f4fff1;">Ituzaingó 444, Local 2</p>
+          <p style="position: relative; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: #f4fff1;">Ituzaingó 444 Local 2</p>
           <p style="position: relative; margin: 6px 0 0; font-size: 16px; color: #9fb29c;">Nueva Córdoba, Córdoba Capital</p>
         </div>
         <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
@@ -172,8 +172,8 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         </form>
 
         <div data-reveal data-m="map" style="position: relative; overflow: hidden; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
-          <iframe title="Mapa de PrimoTech — Ituzaingó 444, Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Local 2 · Nueva Córdoba</div>
+          <iframe title="Mapa de PrimoTech — Ituzaingó 444 Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 Local 2 · Nueva Córdoba</div>
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       </svg>
       Facebook
     </a>
-    <span>Ituzaingó 444, Local 2, Nueva Córdoba · Córdoba, AR</span>
+    <span>Ituzaingó 444 Local 2, Nueva Córdoba · Córdoba, AR</span>
   </footer>
 
   <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" style="position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 90; display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 1px rgba(57,255,20,.35), 0 14px 36px rgba(0,0,0,.55), 0 0 28px rgba(37,211,102,.45); animation: pt-float 4.5s ease-in-out infinite; transition: transform .25s ease, box-shadow .25s ease;" style-hover="transform: scale(1.08); box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 44px rgba(0,0,0,.6), 0 0 40px rgba(37,211,102,.65);">

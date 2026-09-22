@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "PrimoTech — especialistas en dispositivos",
-  description: "Reparación de notebooks, iPhones, MacBooks, smartphones, consolas, parlantes portátiles y PCs de escritorio en Ituzaingó 444, Local 2, Nueva Córdoba.",
+  description: "Reparación de notebooks, iPhones, MacBooks, smartphones, consolas, parlantes portátiles y PCs de escritorio en Ituzaingó 444 Local 2, Nueva Córdoba.",
   icons: { icon: "/assets/favicon.png" },
 };
 
