@@ -32,9 +32,9 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
 
     <div data-reveal style="position: relative; width: 100%; max-width: 1080px; margin: 0 auto; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
       <h1 style="margin: 0; font-size: 0; line-height: 0; text-align: center;">
-        <video id="pt-logo-video" src="/assets/primotech-logo-6s.webm" autoPlay muted loop playsInline preload="auto" aria-label="PrimoTech — especialistas en dispositivos" style="display: inline-block; width: min(88%, 980px); height: auto; margin: 0 auto;"></video>
+        <canvas id="pt-logo-canvas" role="img" aria-label="PrimoTech — especialistas en dispositivos" style="display: inline-block; width: min(88%, 980px); height: auto; margin: 0 auto;"></canvas>
       </h1>
-      <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Nueva Córdoba, Córdoba Capital</p>
+      <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Local 2, Nueva Córdoba, Córdoba Capital</p>
       <div style="position: relative; width: 100%; height: 16px; margin: 4px 0 0;">
         <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
         <div style="position: absolute; left: 12%; top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
@@ -125,7 +125,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
           <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.14) 1px, transparent 1.3px); background-size: 20px 20px; opacity: .4;"></div>
           <p style="position: relative; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Dirección</p>
-          <p style="position: relative; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: #f4fff1;">Ituzaingó 444</p>
+          <p style="position: relative; margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -.015em; color: #f4fff1;">Ituzaingó 444, Local 2</p>
           <p style="position: relative; margin: 6px 0 0; font-size: 16px; color: #9fb29c;">Nueva Córdoba, Córdoba Capital</p>
         </div>
         <div style="position: relative; overflow: hidden; padding: 28px; border: 1px solid rgba(57,255,20,.18); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9));">
@@ -172,8 +172,8 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         </form>
 
         <div data-reveal data-m="map" style="position: relative; overflow: hidden; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
-          <iframe title="Mapa de PrimoTech — Ituzaingó 444, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 · Nueva Córdoba</div>
+          <iframe title="Mapa de PrimoTech — Ituzaingó 444, Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444, Local 2 · Nueva Córdoba</div>
         </div>
       </div>
     </div>
@@ -201,7 +201,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       </svg>
       Facebook
     </a>
-    <span>Ituzaingó 444, Nueva Córdoba · Córdoba, AR</span>
+    <span>Ituzaingó 444, Local 2, Nueva Córdoba · Córdoba, AR</span>
   </footer>
 
   <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" style="position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 90; display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 1px rgba(57,255,20,.35), 0 14px 36px rgba(0,0,0,.55), 0 0 28px rgba(37,211,102,.45); animation: pt-float 4.5s ease-in-out infinite; transition: transform .25s ease, box-shadow .25s ease;" style-hover="transform: scale(1.08); box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 44px rgba(0,0,0,.6), 0 0 40px rgba(37,211,102,.65);">
@@ -259,11 +259,173 @@ export default function Home() {
       });
     });
 
-    const video = root.querySelector<HTMLVideoElement>("#pt-logo-video");
-    if (video) {
-      video.playbackRate = 12;
-      video.play().catch(() => {});
+    let logoDead = false;
+    let logoRaf = 0;
+    let logoTimer: ReturnType<typeof setInterval> | undefined;
+
+    async function bootLogo() {
+      if (!root) return;
+      const canvas = root.querySelector<HTMLCanvasElement>("#pt-logo-canvas");
+      if (!canvas) return;
+
+      const readyImg = (el: HTMLImageElement) =>
+        new Promise<HTMLImageElement>((res) => {
+          if (el.complete && el.naturalWidth) return res(el);
+          el.addEventListener("load", () => res(el), { once: true });
+          el.addEventListener("error", () => res(el), { once: true });
+        });
+
+      const baseImg = new Image();
+      baseImg.src = "/assets/primotech-logo-base.png";
+      const circuitImg = new Image();
+      circuitImg.src = "/assets/primotech-logo-circuit.png";
+
+      const [base, circuit] = await Promise.all([readyImg(baseImg), readyImg(circuitImg)]);
+      if (logoDead || !circuit.naturalWidth) return;
+
+      const OW = 1288, OH = 488, CX = 1166, CY = 515, START = 297;
+      const W = circuit.naturalWidth, H = circuit.naturalHeight;
+
+      const mk = (w: number, h: number) => {
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        return c;
+      };
+
+      const c0 = mk(W, H);
+      c0.getContext("2d")!.drawImage(circuit, 0, 0);
+      const cp = c0.getContext("2d")!.getImageData(0, 0, W, H).data;
+
+      const travel = (X: number, y: number) => {
+        const a = (Math.atan2(y - CY, X - CX) * 180) / Math.PI;
+        return ((START - ((a + 360) % 360)) + 720) % 360;
+      };
+
+      const seq: Array<[number, number, number, number]> = [];
+      let tMin = 1e9, tMax = -1;
+      for (let i = 0; i < W * H; i++) {
+        if (cp[i * 4 + 3] < 30) continue;
+        const X = i % W, y = (i / W) | 0, tv = travel(X, y);
+        seq.push([X, y, Math.min(1, (cp[i * 4 + 3] / 255) * 0.92), tv]);
+        if (tv < tMin) tMin = tv;
+        if (tv > tMax) tMax = tv;
+      }
+      seq.sort((a, b) => a[3] - b[3]);
+      const arc = { from: tMin - 9, to: tMax };
+
+      const baseS = mk(OW, OH);
+      baseS.getContext("2d")!.drawImage(base, 0, 0, OW, OH);
+      const circuitS = mk(OW, OH);
+      circuitS.getContext("2d")!.drawImage(circuit, 0, 0, OW, OH);
+      const trailCanvas = mk(W, H);
+      const t = trailCanvas.getContext("2d")!;
+      const headCanvas = mk(W, H);
+      const h = headCanvas.getContext("2d")!;
+      const GW = OW >> 1, GH = OH >> 1;
+      const glowCanvas = mk(GW, GH);
+      const g = glowCanvas.getContext("2d")!;
+
+      canvas.width = OW;
+      canvas.height = OH;
+      const o = canvas.getContext("2d")!;
+
+      let cursor = 0;
+      let lastPhase = 0;
+      const t0 = performance.now();
+      const LOOP_SECONDS = 6;
+      const GHOST_OPACITY = 0.2;
+
+      function ray(ctx: CanvasRenderingContext2D, tv: number) {
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.translate(CX, CY);
+        ctx.rotate(((START - tv) * Math.PI) / 180);
+        const grad = ctx.createLinearGradient(0, 0, 1496, 0);
+        grad.addColorStop(0, "rgba(120,225,88,0.22)");
+        grad.addColorStop(1, "rgba(200,245,180,0.8)");
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.arc(0, 0, 1700, -0.055, 0.055);
+        ctx.closePath();
+        ctx.fill();
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+      }
+
+      function render(phase: number) {
+        const drawEnd = 0.74, holdEnd = 0.9;
+        let progress: number, alpha: number;
+        if (phase < drawEnd) { progress = phase / drawEnd; alpha = 1; }
+        else if (phase < holdEnd) { progress = 1; alpha = 1; }
+        else { progress = 1; alpha = 1 - (phase - holdEnd) / (1 - holdEnd); }
+
+        const ang = arc.from + progress * (arc.to - arc.from);
+        if (phase < lastPhase) { t.clearRect(0, 0, W, H); cursor = 0; }
+        lastPhase = phase;
+
+        while (cursor < seq.length && seq[cursor][3] <= ang) {
+          const p = seq[cursor++];
+          t.fillStyle = "rgba(96,222,76," + p[2].toFixed(3) + ")";
+          t.fillRect(p[0], p[1], 2.4, 2.4);
+        }
+
+        h.clearRect(0, 0, W, H);
+        if (phase < drawEnd) {
+          h.save();
+          ray(h, ang);
+          h.globalCompositeOperation = "destination-in";
+          h.drawImage(circuit, 0, 0);
+          h.restore();
+        }
+
+        g.clearRect(0, 0, GW, GH);
+        g.globalCompositeOperation = "source-over";
+        g.globalAlpha = 0.7;
+        g.drawImage(trailCanvas, 0, 0, GW, GH);
+        g.globalCompositeOperation = "lighter";
+        g.globalAlpha = 0.85;
+        g.drawImage(headCanvas, 0, 0, GW, GH);
+        g.globalCompositeOperation = "source-over";
+        g.globalAlpha = 1;
+
+        o.globalCompositeOperation = "source-over";
+        o.filter = "none";
+        o.globalAlpha = 1;
+        o.clearRect(0, 0, OW, OH);
+        o.drawImage(baseS, 0, 0);
+        o.globalCompositeOperation = "lighter";
+        o.globalAlpha = 0.05 + 0.05 * Math.sin(phase * Math.PI * 2);
+        o.drawImage(baseS, 0, 0);
+        o.globalAlpha = GHOST_OPACITY;
+        o.drawImage(circuitS, 0, 0);
+        o.globalAlpha = alpha * 0.8;
+        o.filter = "blur(4px)";
+        o.drawImage(glowCanvas, 0, 0, OW, OH);
+        o.filter = "none";
+        o.globalAlpha = alpha;
+        o.drawImage(trailCanvas, 0, 0, OW, OH);
+        o.drawImage(headCanvas, 0, 0, OW, OH);
+        o.globalCompositeOperation = "source-over";
+        o.globalAlpha = 1;
+      }
+
+      function frame() {
+        if (logoDead) return;
+        const loop = LOOP_SECONDS * 1000;
+        render(((performance.now() - t0) % loop) / loop);
+      }
+
+      function tick() {
+        if (logoDead) return;
+        logoRaf = requestAnimationFrame(tick);
+        frame();
+      }
+
+      tick();
+      logoTimer = setInterval(() => {
+        if (!logoDead && document.hidden) frame();
+      }, 200);
     }
+    bootLogo();
 
     const form = root.querySelector<HTMLFormElement>("#pt-contact-form");
     const msgEl = root.querySelector<HTMLElement>("#pt-form-msg");
@@ -309,6 +471,9 @@ export default function Home() {
     form?.addEventListener("submit", onSubmit);
 
     return () => {
+      logoDead = true;
+      cancelAnimationFrame(logoRaf);
+      if (logoTimer) clearInterval(logoTimer);
       document.documentElement.removeAttribute("data-reveal-on");
       clearInterval(revealTimer);
       window.removeEventListener("scroll", revealScan);
