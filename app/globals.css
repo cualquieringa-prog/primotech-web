@@ -47,6 +47,6 @@ body {
   @media (max-width: 860px) {
     html { scroll-padding-top: 120px; }
     [data-m="nav"] { flex-direction: column; }
-    #inicio { padding-top: clamp(96px, 20vw, 120px) !important; }
+    #inicio { padding-top: clamp(96px, 20vw, 120px) !important; align-items: flex-start !important; }
   }
 }
