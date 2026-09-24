@@ -195,7 +195,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       </svg>
       TikTok
     </a>
-    <a href="https://facebook.com/primotech.cba" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; color: #a8ff96; letter-spacing: .12em; transition: color .25s ease;" style-hover="color: #39ff14;">
+    <a href="https://www.facebook.com/primotech.cba" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; color: #a8ff96; letter-spacing: .12em; transition: color .25s ease;" style-hover="color: #39ff14;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.87.24-1.46 1.48-1.46h1.58V4.45c-.27-.04-1.2-.11-2.29-.11-2.27 0-3.82 1.38-3.82 3.92v2.24H7.7v3h2.75V21h3.05Z"></path>
       </svg>
