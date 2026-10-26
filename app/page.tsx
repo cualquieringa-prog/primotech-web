@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import CircuitBackground from "@/components/CircuitBackground";
+import { useInitialExperienceYears } from "@/components/ExperienceYearsProvider";
 import { WHATSAPP_NUMBER, WEB3FORMS_ACCESS_KEY } from "@/lib/config";
+import { experienceYearsInlineScript, getExperienceYears } from "@/lib/experience";
 
 const WHATSAPP_MESSAGE = "\u00a1Hola PrimoTech! Quiero consultar por una reparaci\u00f3n.";
 
@@ -35,7 +37,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         <canvas id="pt-logo-canvas" role="img" aria-label="PrimoTech — especialistas en dispositivos" style="display: inline-block; width: min(88%, 980px); height: auto; margin: 0 auto;"></canvas>
       </h1>
       <p style="margin: 18px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 Local 2, Nueva Córdoba, Córdoba Capital</p>
-      <p style="margin: 6px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 14px; letter-spacing: .16em; text-transform: uppercase; color: rgba(168,255,150,.6);">+10 años de experiencia</p>
+      <p style="margin: 6px 0 0; text-align: center; font-family: 'IBM Plex Mono', monospace; font-size: 11px; line-height: 14px; letter-spacing: .16em; text-transform: uppercase; color: rgba(168,255,150,.6);">+<span data-years>{{ years }}</span> años de experiencia</p>
       <div style="position: relative; width: 100%; height: 16px; margin: 4px 0 0;">
         <div style="position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, transparent, rgba(57,255,20,.35), transparent); pointer-events: none;"></div>
         <div style="position: absolute; left: 12%; top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
@@ -131,7 +133,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       <div data-reveal style="transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
         <p style="margin: 0 0 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #39ff14;">Nosotros</p>
         <h2 style="margin: 0 0 26px; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.035em; color: #f4fff1;">Un taller, no una caja negra</h2>
-        <p style="margin: 0 0 22px; font-size: clamp(19px, 2.3vw, 23px); line-height: 1.4; font-weight: 600; letter-spacing: -.015em; color: #f4fff1; text-wrap: pretty;"><span style="color: #39ff14; text-shadow: 0 0 22px rgba(57,255,20,.35);">10 años de experiencia</span> reparando dispositivos</p>
+        <p style="margin: 0 0 22px; font-size: clamp(19px, 2.3vw, 23px); line-height: 1.4; font-weight: 600; letter-spacing: -.015em; color: #f4fff1; text-wrap: pretty;"><span style="color: #39ff14; text-shadow: 0 0 22px rgba(57,255,20,.35);"><span data-years>{{ years }}</span> años de experiencia</span> reparando dispositivos</p>
         <p style="margin: 0 0 20px; font-size: 17px; line-height: 1.7; color: #b6c8b3; text-wrap: pretty;">PrimoTech es un local de reparación de dispositivos electrónicos en Nueva Córdoba. Recibimos el equipo, hacemos el diagnóstico y te explicamos qué falla, qué se cambia y cuánto cuesta antes de avanzar. Reparamos a nivel componente cuando se puede, en vez de cambiar todo por defecto.</p>
         <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #8fa38c;">Trabajos con garantía escrita y seguimiento por WhatsApp mientras tu equipo está en el taller.</p>
       </div>
@@ -221,15 +223,23 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
   <a href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp" style="position: fixed; right: clamp(16px, 3vw, 32px); bottom: clamp(16px, 3vw, 32px); z-index: 90; display: flex; align-items: center; justify-content: center; width: 62px; height: 62px; border-radius: 50%; background: #25d366; box-shadow: 0 0 0 1px rgba(57,255,20,.35), 0 14px 36px rgba(0,0,0,.55), 0 0 28px rgba(37,211,102,.45); animation: pt-float 4.5s ease-in-out infinite; transition: transform .25s ease, box-shadow .25s ease;" style-hover="transform: scale(1.08); box-shadow: 0 0 0 1px rgba(57,255,20,.6), 0 18px 44px rgba(0,0,0,.6), 0 0 40px rgba(37,211,102,.65);">
     <svg width="34" height="34" viewBox="0 0 24 24" fill="#040604" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm0 18.02h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.16 8.16 0 0 1-1.25-4.35c0-4.54 3.7-8.23 8.23-8.23 4.54 0 8.23 3.7 8.23 8.23 0 4.54-3.7 8.21-8.24 8.21Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.8-.23-.09-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.29-.29.43-.44.15-.14.19-.25.29-.41.1-.17.05-.31-.05-.44-.1-.12-.51-1.22-.69-1.67-.19-.45-.37-.39-.51-.4h-.44c-.15 0-.4.06-.61.31-.21.25-.8.79-.8 1.92 0 1.13.82 2.22.94 2.38.11.15 1.6 2.54 3.88 3.46.54.24.97.38 1.3.48.55.18 1.05.15 1.45.09.44-.06 1.42-.58 1.63-1.15.2-.56.2-1.05.14-1.15-.06-.1-.22-.16-.47-.28Z"></path></svg>
   </a>
+
+  <script>{{ yearsScript }}</script>
 `;
 
 export default function Home() {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
+  const initialYears = useInitialExperienceYears();
 
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+
+    const years = String(getExperienceYears());
+    root.querySelectorAll<HTMLElement>("[data-years]").forEach((el) => {
+      if (el.textContent !== years) el.textContent = years;
+    });
 
     document.documentElement.setAttribute("data-reveal-on", "");
 
@@ -496,7 +506,10 @@ export default function Home() {
     };
   }, [router]);
 
-  const html = PAGE_HTML.replaceAll("{{ waLink }}", buildWaLink());
+  const html = PAGE_HTML
+    .replaceAll("{{ waLink }}", buildWaLink())
+    .replaceAll("{{ years }}", String(initialYears))
+    .replaceAll("{{ yearsScript }}", experienceYearsInlineScript());
 
   return (
     <div

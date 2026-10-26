@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { ExperienceYearsProvider } from "@/components/ExperienceYearsProvider";
+import { getExperienceYears } from "@/lib/experience";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +22,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <ExperienceYearsProvider initialYears={getExperienceYears()}>{children}</ExperienceYearsProvider>
+      </body>
     </html>
   );
 }
