@@ -131,7 +131,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
       <div data-reveal style="transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1);">
         <p style="margin: 0 0 14px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .28em; text-transform: uppercase; color: #39ff14;">Nosotros</p>
         <h2 style="margin: 0 0 26px; font-size: clamp(34px, 5.4vw, 60px); line-height: 1.02; font-weight: 700; letter-spacing: -.035em; color: #f4fff1;">Un taller, no una caja negra</h2>
-        <p style="margin: 0 0 22px; font-size: clamp(19px, 2.3vw, 23px); line-height: 1.4; font-weight: 600; letter-spacing: -.015em; color: #f4fff1; text-wrap: pretty;"><span style="color: #39ff14; text-shadow: 0 0 22px rgba(57,255,20,.35);">10 años de experiencia</span> reparando dispositivos en Nueva Córdoba</p>
+        <p style="margin: 0 0 22px; font-size: clamp(19px, 2.3vw, 23px); line-height: 1.4; font-weight: 600; letter-spacing: -.015em; color: #f4fff1; text-wrap: pretty;"><span style="color: #39ff14; text-shadow: 0 0 22px rgba(57,255,20,.35);">10 años de experiencia</span> reparando dispositivos</p>
         <p style="margin: 0 0 20px; font-size: 17px; line-height: 1.7; color: #b6c8b3; text-wrap: pretty;">PrimoTech es un local de reparación de dispositivos electrónicos en Nueva Córdoba. Recibimos el equipo, hacemos el diagnóstico y te explicamos qué falla, qué se cambia y cuánto cuesta antes de avanzar. Reparamos a nivel componente cuando se puede, en vez de cambiar todo por defecto.</p>
         <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #8fa38c;">Trabajos con garantía escrita y seguimiento por WhatsApp mientras tu equipo está en el taller.</p>
       </div>
