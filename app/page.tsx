@@ -43,8 +43,8 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         <div style="position: absolute; left: 12%; top: 50%; width: 7px; height: 7px; margin-top: -3px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 14px #39ff14; animation: pt-pulse 3.2s ease-in-out infinite; pointer-events: none;"></div>
         <div style="position: absolute; right: 22%; top: 50%; width: 5px; height: 5px; margin-top: -2px; border-radius: 50%; background: #39ff14; box-shadow: 0 0 12px #39ff14; animation: pt-pulse 4.1s ease-in-out infinite; pointer-events: none;"></div>
       </div>
-      <p style="margin: 20px 0 0; max-width: 640px; font-size: clamp(16px, 2.1vw, 20px); line-height: 1.6; color: #b6c8b3; text-wrap: pretty;">Reparamos notebooks, iPhones, MacBooks, smartphones, consolas, TV y Smart TV, parlantes portátiles y PCs de escritorio. Diagnóstico en el centro de Nueva Córdoba.</p>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 32px;">
+      <p data-m="hero-lead" style="margin: 20px 0 0; max-width: 640px; font-size: clamp(16px, 2.1vw, 20px); line-height: 1.6; color: #b6c8b3; text-wrap: pretty;">Reparamos notebooks, iPhones, MacBooks, smartphones, consolas, TV y Smart TV, parlantes portátiles y PCs de escritorio. Diagnóstico en el centro de Nueva Córdoba.</p>
+      <div data-m="hero-cta" style="display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 32px;">
         <a href="#servicios" style="display: inline-flex; align-items: center; gap: 10px; padding: 20px 24px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: #cfe0cc; border-bottom: 1px solid rgba(57,255,20,.3);" style-hover="color: #39ff14; border-bottom: 1px solid #39ff14;">Ver servicios ↓</a>
       </div>
     </div>
@@ -60,7 +60,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         <p style="margin: 0; max-width: 420px; font-size: 16px; line-height: 1.65; color: #9fb29c;">Diagnóstico sin cargo y presupuesto antes de tocar el equipo, siempre que se pueda. Trabajamos con microsoldadura, cambio de módulos y recuperación de datos.</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 56px;">
+      <div data-m="services-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 56px;">
 
         <div data-reveal style="position: relative; overflow: hidden; padding: 30px 28px 34px; border: 1px solid rgba(57,255,20,.16); border-radius: 6px; background: linear-gradient(160deg, rgba(20,30,18,.9), rgba(6,10,6,.9)); transition: opacity .8s ease, transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .35s ease;" style-hover="transform: translateY(-10px); border-color: rgba(57,255,20,.5); box-shadow: 0 24px 50px rgba(0,0,0,.6), 0 0 34px rgba(57,255,20,.16);">
           <div style="position: absolute; inset: 0; pointer-events: none; background-image: radial-gradient(circle at 1px 1px, rgba(57,255,20,.16) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .35; mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent); -webkit-mask-image: radial-gradient(80% 60% at 100% 0%, #000, transparent);"></div>

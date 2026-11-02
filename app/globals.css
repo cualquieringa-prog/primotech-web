@@ -49,4 +49,9 @@ body {
     [data-m="nav"] { flex-direction: column; }
     #inicio { padding-top: clamp(96px, 20vw, 120px) !important; align-items: flex-start !important; }
   }
+  @media (min-width: 861px) {
+    [data-m="hero-lead"] { text-align: center; margin-left: auto !important; margin-right: auto !important; max-width: 720px !important; }
+    [data-m="hero-cta"] { justify-content: center; }
+    [data-m="services-grid"] { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; }
+  }
 }
