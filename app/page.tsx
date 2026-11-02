@@ -188,9 +188,15 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
           <p id="pt-form-msg" style="position: relative; margin: 0; min-height: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #39ff14;"></p>
         </form>
 
-        <div data-reveal data-m="map" style="position: relative; overflow: hidden; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
+        <div data-reveal data-m="map" style="position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
+          <div data-m="map-area" style="position: relative; flex: 1 1 auto; min-height: clamp(300px, 40vw, 380px);">
           <iframe title="Mapa de PrimoTech — Ituzaingó 444 Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=-31.4221115%2C-64.1836896&z=17&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 Local 2 · Nueva Córdoba</div>
+          </div>
+          <div data-m="map-actions" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 16px; padding: 14px; border-top: 1px solid rgba(57,255,20,.18); background: linear-gradient(160deg, rgba(20,30,18,.92), rgba(6,10,6,.92));">
+            <a href="https://www.google.com/maps/dir/?api=1&amp;destination=-31.4221115,-64.1836896" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; padding: 14px 24px; border: 1px solid #39ff14; border-radius: 4px; color: #39ff14; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; transition: background .25s ease, color .25s ease, transform .25s ease;" style-hover="background: #39ff14; color: #040604; transform: translateY(-2px);">Cómo llegar</a>
+            <a href="https://www.google.com/maps/place/Primotech/@-31.4221115,-64.1836896,17z/data=!3m1!4b1!4m6!3m5!1s0x9432a30976ee5f63:0x3f5c77c753d86ff4!8m2!3d-31.4221115!4d-64.1836896!16s%2Fg%2F11zx49b79x" target="_blank" rel="noopener noreferrer" style="display: inline-block; padding: 12px 2px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #9fb29c; text-decoration: underline; text-decoration-color: rgba(57,255,20,.35); text-underline-offset: 4px; transition: color .25s ease, text-decoration-color .25s ease;" style-hover="color: #39ff14; text-decoration-color: #39ff14;">Ver en Google Maps</a>
+          </div>
         </div>
       </div>
     </div>
