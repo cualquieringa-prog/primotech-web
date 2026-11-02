@@ -149,6 +149,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
           <p style="position: relative; margin: 0 0 10px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: rgba(57,255,20,.75);">Horarios</p>
           <p style="position: relative; margin: 0; font-size: 18px; color: #e6f5e3;">Lunes a viernes · 9 a 19 hs</p>
           <p style="position: relative; margin: 6px 0 0; font-size: 18px; color: #e6f5e3;">Sábados · 9 a 14 hs</p>
+          <p style="position: relative; margin: 14px 0 0; font-size: 14px; line-height: 1.5; color: #8fa38c; text-wrap: pretty;">¿Es urgente? <a href="{{ waLink }}" target="_blank" rel="noopener" style="color: #39ff14; text-decoration: underline; text-decoration-color: rgba(57,255,20,.4); text-underline-offset: 3px; padding: 8px 0; transition: color .25s ease, text-decoration-color .25s ease;" style-hover="color: #a8ff96; text-decoration-color: #a8ff96;">Escribinos por WhatsApp</a></p>
         </div>
       </div>
     </div>
