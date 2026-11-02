@@ -189,7 +189,7 @@ const PAGE_HTML = `  <nav data-m="nav" style="position: fixed; top: 0; left: 0; 
         </form>
 
         <div data-reveal data-m="map" style="position: relative; overflow: hidden; min-height: clamp(300px, 40vw, 380px); border: 1px solid rgba(57,255,20,.18); border-radius: 6px; transition: opacity .8s ease .1s, transform .8s cubic-bezier(.2,.7,.2,1) .1s;">
-          <iframe title="Mapa de PrimoTech — Ituzaingó 444 Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=Ituzaing%C3%B3%20444%2C%20Nueva%20C%C3%B3rdoba%2C%20C%C3%B3rdoba%2C%20Argentina&z=16&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe title="Mapa de PrimoTech — Ituzaingó 444 Local 2, Nueva Córdoba" src="https://www.google.com/maps?q=-31.4221115%2C-64.1836896&z=17&output=embed" style="width: 100%; height: 100%; min-height: clamp(300px, 40vw, 380px); border: 0; filter: grayscale(1) invert(.92) hue-rotate(75deg) contrast(1.05) brightness(.95);" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           <div style="position: absolute; left: 16px; bottom: 16px; padding: 10px 14px; border: 1px solid rgba(57,255,20,.35); border-radius: 4px; background: rgba(4,7,4,.86); backdrop-filter: blur(6px); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #a8ff96;">Ituzaingó 444 Local 2 · Nueva Córdoba</div>
         </div>
       </div>
