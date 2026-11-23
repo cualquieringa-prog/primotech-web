@@ -52,6 +52,9 @@ body {
   @media (min-width: 861px) {
     [data-m="hero-lead"] { text-align: center; margin-left: auto !important; margin-right: auto !important; max-width: 720px !important; }
     [data-m="hero-cta"] { justify-content: center; }
-    [data-m="services-grid"] { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important; }
+    [data-m="services-grid"] { grid-template-columns: repeat(2, 1fr) !important; }
+  }
+  @media (min-width: 1240px) {
+    [data-m="services-grid"] { grid-template-columns: repeat(4, 1fr) !important; }
   }
 }
